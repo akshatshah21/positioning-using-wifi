@@ -17,11 +17,11 @@ double ARm, 	//Actual RSSI measurement, from WiFi.RSSI()
 prev_Re= 0, 	//Previous RSSI estimate (Time update and Measurement Update)
 prev_Pre = 1 ,  //Previous prior estimate (Time update only)
 Rre,			//Current RSSI rough RSSI estimate
-prev_Rre,		//Previous RSSI rough estimate
+//prev_Rre,		//Previous RSSI rough estimate
 Pre,			//Current Prior RSSI estimate
 prev_Pe = 1,	//Previous
 k,				//Kalman Gain
-R = 0.001,		//Some matrix
+R = 0.05,		//Some matrix
 Re,				//Current RSSI estimate
 Pe;				//
 
@@ -38,9 +38,7 @@ void kalman_filter()
 	//Serial.print(k);
 	//Serial.print(" ");
 	prev_Re = Re;
-	prev_Pe = Pe;
-    /*
-    if(Pe>=0.00001)
+	if(Pe>=0.0001)
     {
         prev_Pe = Pe;
     }
@@ -48,19 +46,31 @@ void kalman_filter()
     {
         prev_Pe=1;
     }
-    */
+    
 }
+
+double txPower = -46;
+/*
+double calculate_distance(double rssi)
+{
+    double r;
+    Serial.println("calc called ");
+    r = pow(10,((19.5-rssi)/(10*1.7)) - 0.36 - 6 - (32.44/(10*1.7)));
+    Serial.println("Calc done");
+    return r;
+}
+*/
+
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
-double txPower = -39;
 double calculate_distance(double rssi)
 {
     double dist;
-    if(WiFi.RSSI()>=txPower)       //DISTANCE LESSER THAN 1m
+    if(WiFi.RSSI()>=txPower)
     {
 
-        dist = pow(10,((txPower-rssi)/20));
-       if(isnan(dist)){
+        dist = pow(10,((txPower-rssi)/17));
+        if(isnan(dist)){
             //Serial.print("NAN condition!");
             return -1;
         }
@@ -68,10 +78,10 @@ double calculate_distance(double rssi)
             return dist;
 
     }
-    else        //DISTANCE GREATER THAN 1m
+    else
     {
-    dist = pow(10,((txPower-rssi)/25));
-    if(isnan(dist))  return -1;
+        dist = pow(10,((txPower-rssi)/20));
+        if(isnan(dist))  return -1;
         else
             return dist;
     }

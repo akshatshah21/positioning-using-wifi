@@ -21,7 +21,7 @@ double prev_speed=0;
 double speed=0,acceleration=0,mean_gradient_rssi=0,predicted_distance;
 
 double prev_error = 0;
-double distance = 0,distance_kalman=0,ratio,txPower = -45.5;//Hardcoded
+double distance = 0,distance_kalman=0,ratio,txPower = -46;//Hardcoded
 int rssi[100],count=1;
 double mean, prev_mean, final_mean, variance, sd;
 int n;
@@ -40,7 +40,7 @@ void getRSSI_and_mean()
 }
 
 //Implementing Kalman Filter:
-double ARm, prev_Re= 2, prev_Pre = 1 ,Rre, prev_Rre, Pre, prev_Pe = 1, k, R = 0.001 , Re, Pe;
+double ARm, prev_Re= 2, prev_Pre = 1 ,Rre, prev_Rre, Pre, prev_Pe = 1, k, R = 0.01 , Re, Pe;
 
 void kalman_filter()
 {

@@ -33,12 +33,13 @@ void loop() {
 #include "WiFi.h"
  
 const char *ssid = "esp32";
-const char *pwd = "passwordx";
+const char *pwd = "password";
  
 void setup() {
  
   Serial.begin(115200);
   WiFi.softAP(ssid, pwd);
+  WiFi.setTxPower(WIFI_POWER_19_5dBm);
   delay(1000);
   Serial.println();
   Serial.print("SSID:");
@@ -48,6 +49,8 @@ void setup() {
 
   Serial.print("IP address: ");
   Serial.println(WiFi.softAPIP());
+  Serial.print("Tx Power:");
+  Serial.println(WiFi.getTxPower());
  
 }
  

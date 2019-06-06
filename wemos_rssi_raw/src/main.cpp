@@ -19,7 +19,7 @@ void kalman_filter()
 {
 ARm =WiFi.RSSI();
 Rre = prev_Re;
-Pre = prev_Pe;
+Pre = prev_Pe + 0.0000001;
 k = Pre/(Pre + R);
 Re = Rre + k*(ARm-Rre);
 Pe = (1-k)*Pre;
