@@ -22,7 +22,12 @@ wemos_wifi_client/.vscode/ipch/
 wemos_wifi_client/include/
 wemos_wifi_client/lib/
 wemos_wifi_client/test/
-
+kalman_on_mean/.pioenvs/
+kalman_on_mean/.vscode/
+kalman_on_mean/.vscode/ipch/
+kalman_on_mean/include/
+kalman_on_mean/lib/
+kalman_on_mean/test/
 *.json
 *.ipch
 *.bin

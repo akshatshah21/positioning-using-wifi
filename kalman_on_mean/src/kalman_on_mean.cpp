@@ -21,13 +21,13 @@ prev_Rre,		//Previous RSSI rough estimate
 Pre,			//Current Prior RSSI estimate
 prev_Pe = 1,	//Previous
 k,				//Kalman Gain
-R = 1,		//Some matrix
+R = 0.01,		//Some matrix
 Re,				//Current RSSI estimate
 Pe;				//
 
-void kalman_filter()
+void kalman_filter(double rssi)
 {
-	ARm =WiFi.RSSI();
+	ARm =rssi;
 	Rre	= prev_Re;
 	Pre = prev_Pe;
 	k = Pre/(Pre + R);
@@ -40,9 +40,18 @@ void kalman_filter()
 	prev_Re = Re;
 	prev_Pe = Pe;
 }
+double mean_rssi=0;
+void get_mean_rssi()
+{
+    for(int i=0;i<100;i++)
+    {
+        mean_rssi += WiFi.RSSI();
+    }
+    mean_rssi /= 100;
+}
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
-double txPower = -45;
+double txPower = -38;
 double calculate_distance(double rssi)
 {
     double dist;
@@ -60,7 +69,7 @@ double calculate_distance(double rssi)
     }
     else
     {
-        dist = pow(10,((txPower-rssi)/20));
+        dist = pow(10,((txPower-rssi)/25));
         if(isnan(dist))  return -1;
         else
             return dist;
@@ -96,16 +105,22 @@ void setup() {
 void loop()
 {
     //Calculate distance from measured RSSI (from WiFi.RSSI())
-    normal_dist = calculate_distance(WiFi.RSSI());
+    get_mean_rssi();
+    normal_dist = calculate_distance(mean_rssi);
 	//Call kalman_filter function
-    kalman_filter();
+    kalman_filter(mean_rssi);
 	//Calculate distance from RSSI output from Kalman filter
     distance_kalman = calculate_distance(Re);
 	//Print the two distances
-    Serial.print(distance_kalman);
+    Serial.print(ARm);
+    Serial.print(" ");
+    Serial.print(Re);
     Serial.print(" ");
     Serial.print(normal_dist);
     Serial.print(" ");
+    Serial.print(distance_kalman);
+    Serial.print(" ");
     Serial.println(k);
+    mean_rssi = 0;
     delay(1);
 }

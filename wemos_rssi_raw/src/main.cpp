@@ -59,8 +59,8 @@ void setup() {
 void loop() {
     kalman_filter();
     //Serial.print("Actual RSSI:");
-    Serial.println(Re);
-
+    Serial.print(ARm);
+    Serial.print(" ");
     //Serial.print("\t Estimated RSSI:");
-    //Serial.println(Re);
+    Serial.println(Re);
 }
