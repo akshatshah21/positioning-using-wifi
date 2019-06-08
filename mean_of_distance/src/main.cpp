@@ -4,7 +4,7 @@
 #include <math.h>
 
 #ifndef STA_SSID
-#define STA_SSID "esp8266"
+#define STA_SSID "esp32"
 #define STA_PWD "password"
 #endif
 const char * ssid = STA_SSID;
@@ -25,7 +25,7 @@ k,				//Kalman Gain
 R = 0.001,		//Some matrix
 Re,				//Current RSSI estimate
 Pe;				//
-
+/*
 void kalman_filter()
 {
 	ARm = WiFi.RSSI();
@@ -50,10 +50,10 @@ void kalman_filter()
         prev_Pe=1;
     }
     */
-}
+//}
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
-double txPower = -49;
+double txPower = -46;
 double calculate_distance(double rssi)
 {
     double dist;
@@ -82,7 +82,7 @@ double calculate_distance(double rssi)
    return dist;
 }
 
-double normal_dist, distance_kalman;
+//double normal_dist, distance_kalman;
 
 void setup() {
     Serial.begin(115200);
@@ -111,16 +111,25 @@ void setup() {
 void loop()
 {
     //Calculate distance from measured RSSI (from WiFi.RSSI())
-    normal_dist = calculate_distance(WiFi.RSSI());
+    //normal_dist = calculate_distance(WiFi.RSSI());
 	//Call kalman_filter function
-    kalman_filter();
+    //kalman_filter();
 	//Calculate distance from RSSI output from Kalman filter
-    distance_kalman = calculate_distance(Re);
+    //distance_kalman = calculate_distance(Re);
 	//Print the two distances
-    Serial.print(distance_kalman);
+    //Serial.print(distance_kalman);
+    //Serial.print(" ");
+    //Serial.print(normal_dist);
+    //Serial.print(" ");
+    //Serial.println(k,8); //Printing Kalman gain to 8dp
+    double dist = 0;
+    Serial.print(WiFi.RSSI());
     Serial.print(" ");
-    Serial.print(normal_dist);
-    Serial.print(" ");
-    Serial.println(k,8); //Printing Kalman gain to 8dp
+    for(int i=0; i<5000;i++)
+    {
+        dist += calculate_distance(WiFi.RSSI());
+    }
+    dist /= 5000;
+    Serial.println(dist);
     delay(1);
 }

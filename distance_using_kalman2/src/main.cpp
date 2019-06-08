@@ -1,16 +1,16 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <ESP8266WiFiMulti.h>
+//#include <ESP8266WiFiMulti.h>
 #include <math.h>
 
 #ifndef STA_SSID
-#define STA_SSID "esp8266"
+#define STA_SSID "esp32"
 #define STA_PWD "password"
 #endif
 const char * ssid = STA_SSID;
 const char * pwd = STA_PWD;
 
-ESP8266WiFiMulti WiFiMulti;
+ESP8266WiFiSTAClass wifi;
 
 //Implementing Kalman Filter:
 
@@ -53,7 +53,7 @@ void kalman_filter()
 }
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
-double txPower = -49;
+double txPower = -41;
 double calculate_distance(double rssi)
 {
     double dist;
@@ -78,7 +78,7 @@ double calculate_distance(double rssi)
             return dist;
     }
     */
-   dist = pow(10,((txPower-rssi)/11));
+   dist = pow(10,((txPower-rssi)/16));
    return dist;
 }
 
@@ -87,13 +87,13 @@ double normal_dist, distance_kalman;
 void setup() {
     Serial.begin(115200);
     WiFi.mode(WIFI_STA);
-        WiFiMulti.addAP(ssid,pwd);
+        wifi.begin(ssid,pwd);
 
     //Serial.println();
     //Serial.println();
     //Serial.println("Waiting for ESP32 WiFi AP");
 
-    while(WiFiMulti.run() != WL_CONNECTED)
+    while(wifi.status() != WL_CONNECTED)
     {
         //Serial.println(".");
         delay(500);

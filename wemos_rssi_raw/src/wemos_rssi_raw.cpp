@@ -13,13 +13,14 @@ ESP8266WiFiMulti WiFiMulti;
 
 
 //Implementing Kalman Filter:
-double ARm, prev_Re= 0, prev_Pre = 1 ,Rre, prev_Rre, Pre, prev_Pe = 1, k, R = 0.1, Re, Pe;
+double ARm, prev_Re= 0, prev_Pre = 1 ,Rre, prev_Rre, Pre, prev_Pe = 1, k, R = 0.5, Re, Pe;
 
 void kalman_filter()
 {
+
 ARm =WiFi.RSSI();
 Rre = prev_Re;
-Pre = prev_Pe + 0.0000001;
+Pre = prev_Pe;
 k = Pre/(Pre + R);
 Re = Rre + k*(ARm-Rre);
 Pe = (1-k)*Pre;
@@ -30,7 +31,8 @@ prev_Pe = Pe;
 
 }
 
-void setup() {
+void setup() 
+{
     Serial.begin(115200);
     WiFi.mode(WIFI_STA);
     WiFiMulti.addAP(ssid,pwd);
@@ -62,5 +64,7 @@ void loop() {
     Serial.print(ARm);
     Serial.print(" ");
     //Serial.print("\t Estimated RSSI:");
-    Serial.println(Re);
+    Serial.print(Re);
+    Serial.print(" ");
+    Serial.println(k,8);
 }
