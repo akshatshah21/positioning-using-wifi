@@ -70,6 +70,8 @@ wemos_rssi_raw2/.vscode/ipch/
 wemos_rssi_raw2/include/
 wemos_rssi_raw2/lib/
 wemos_rssi_raw2/test/
+mqtt/
+anchor/
 *.json
 *.ipch
 *.bin
