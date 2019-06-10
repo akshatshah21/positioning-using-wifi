@@ -70,7 +70,10 @@ wemos_rssi_raw2/.vscode/ipch/
 wemos_rssi_raw2/include/
 wemos_rssi_raw2/lib/
 wemos_rssi_raw2/test/
-mqtt/
+mqtt/paho.mqtt.python/
+mqtt/Distance1.txt
+mqtt/Distance2.txt
+mqtt/Distance3.txt
 anchor/
 *.json
 *.ipch
