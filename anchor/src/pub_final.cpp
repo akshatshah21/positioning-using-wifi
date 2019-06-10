@@ -174,11 +174,7 @@ void loop(){
     Serial.println(k,8); //Printing Kalman gain to 8dp
     delay(1);
 
-    if (!client.connected()){
-        reconnect();
-    }
 
-    client.loop();
 
     double dist_1 = distance_kalman;        //distance
     Serial.println("distance calculated is :");
@@ -188,10 +184,10 @@ void loop(){
     dtostrf(dist_1,3,3, distance_1); //// convert float to char parameter= value ,width,precision,arr_to_store
     client.publish("d1", distance_1); /// send char array
 
+    if (!client.connected()){
+        reconnect();
+    }
 
-
-
-
-
+    client.loop();
 
 }
