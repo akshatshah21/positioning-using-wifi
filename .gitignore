@@ -74,7 +74,12 @@ mqtt/paho.mqtt.python/
 mqtt/Distance1.txt
 mqtt/Distance2.txt
 mqtt/Distance3.txt
-anchor/
+anchor/.pioenvs/
+anchor/.vscode/
+anchor/.vscode/ipch/
+anchor/include/
+anchor/lib/
+anchor/test/
 *.json
 *.ipch
 *.bin
