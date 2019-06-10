@@ -74,6 +74,7 @@ mqtt/paho.mqtt.python/
 mqtt/Distance1.txt
 mqtt/Distance2.txt
 mqtt/Distance3.txt
+anchor/
 *.json
 *.ipch
 *.bin
