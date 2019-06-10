@@ -9,21 +9,40 @@ def on_message(client, userdata, message):
 	print("Message:" + str(message.payload.decode(utf-8)))
 '''
 
-f1.open("Distance1.txt",'w')
-f2.open("Distance2.txt",'w')
-f3.open("Distance3.txt",'w')
+#Open files for storing the three distances:
+f1 = open("Distance1.txt",'w')
+f2 = open("Distance2.txt",'w')
+f3 = open("Distance3.txt",'w')
 
-# On message function for displaying the message 'on_message'
+#Initialize counter for trifurcating the distances in order
+count = 1
+print("count set to 1")
+
+# On message function for displaying and storing the message
 def on_message(client, userdata, message):
-   print("Message Recieved:",message.payload.decode())
-   if message.topic =="d1":
-	   f1.write(message.payload.decode())
-   elif message.topic == "d2":
-	   f2.write(message.payload.decode())
-   elif message.topic == "d3":
-	   f3.write(message.payload.decode())
+    global count #Note this. To change a global variable
+    print(message.topic, message.payload.decode())
+    if count % 3 == 1:
+        print("Entered count 1 case")
+        if str(message.topic) == 'd1':
+            print("Printing to Distance1.txt")
+            f1.write(message.payload.decode() + '\n')
+            count += 1
+    elif count % 3 == 2:
+        print("Entered count 2 case")
+        if message.topic == 'd2':
+            print("Printing to Distance2.txt")
+            f2.write(message.payload.decode() + '\n')
+            count += 1
+    elif count % 3 == 0:
+        print("Entered count 3 case")
+        if message.topic == 'd3':
+            print("Printing to Distance3.txt")
+            f3.write(message.payload.decode() + '\n')
+            count += 1
 
-broker = "postman.cloudmqtt.com" #clientID. May be IP address also
+
+broker = "postman.cloudmqtt.com" #Hostname. May be IP address also
 
 # The client name is used by the MQTT broker to identify the client.
 mqttClient = mqtt.Client("python1",True)
@@ -42,9 +61,10 @@ print("Connected")
 
 
 #Publish a message 'message' to 'example' topic
-mqttClient.publish("example","Message",retain=True)
-#Subscribe to topic "example'
-mqttClient.subscribe(("d1",0),("d2",0),("d3",0))
+# mqttClient.publish("example","Message")
+
+#Subscribe to topic "example', d1,d2,d3
+mqttClient.subscribe([("d1",0),("d2",0),("d3",0)])
 
 mqttClient.loop_forever();
 '''
