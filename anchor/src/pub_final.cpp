@@ -5,12 +5,12 @@
 
 
 //broker details
-const char* ssid = "************";
-const char* password = "************";
-const char* brokerUser = "*******"; /// MQTT Broker USerName
-const char* brokerPass = "******"; //broker password
-const char* broker = "*****";  //broker
-int mqtt_port = 1883;   //will have to change
+const char* ssid = "ganadhish";
+const char* password = "ganadhish";
+const char* brokerUser = "ocbshoyv";/// MQTT Broker USerName
+const char* brokerPass = "u7RF9Xts1g1r"; //broker password
+const char* broker = "postman.cloudmqtt.com";  //broker
+int mqtt_port = 16557;   //will have to change
 
 
 /*
@@ -130,7 +130,7 @@ void reconnect(){
             Serial.println(broker);
         } else{
             Serial.println("Trying to connect again");
-            delay(500);
+            delay(200);
         }
 
 
@@ -182,7 +182,7 @@ void loop(){
 
     char distance_1 [10];
     dtostrf(dist_1,3,3, distance_1); //// convert float to char parameter= value ,width,precision,arr_to_store
-    client.publish("d1", distance_1); /// send char array
+    client.publish("d3", distance_1); /// send char array
 
     if (!client.connected()){
         reconnect();

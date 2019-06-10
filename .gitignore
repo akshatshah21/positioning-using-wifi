@@ -4,6 +4,12 @@ esp32_AP/.vscode/ipch/
 esp32_AP/include/
 esp32_AP/lib/
 esp32_AP/test/
+esp32_anchor/.pioenvs/
+esp32_anchor/.vscode/
+esp32_anchor/.vscode/ipch/
+esp32_anchor/include/
+esp32_anchor/lib/
+esp32_anchor/test/
 distance_using_kalman/.pioenvs/
 distance_using_kalman/.vscode/
 distance_using_kalman/.vscode/ipch/
