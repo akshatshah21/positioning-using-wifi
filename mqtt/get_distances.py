@@ -1,4 +1,4 @@
-#!python3
+    #!python3
 #Header files
 
 import paho.mqtt.client as mqtt
@@ -93,7 +93,7 @@ f1 = open("Distance1.txt",'w')
 f2 = open("Distance2.txt",'w')
 f3 = open("Distance3.txt",'w')
 mqttClient.loop_forever()
-time.sleep(0.2)
+
 
 # f1.close()
 # f2.close()

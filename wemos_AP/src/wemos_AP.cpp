@@ -31,8 +31,8 @@ void loop() {
 }
 */
  
-const char *ssid = "esp8266";
-const char *pwd = "password";
+const char *ssid = "leo";
+const char *pwd = "leopassword";
  
 void setup() {
  

@@ -4,8 +4,8 @@
 #include <math.h>
 
 #ifndef STA_SSID
-#define STA_SSID "esp32"
-#define STA_PWD "password"
+#define STA_SSID "leo"
+#define STA_PWD "leopassword"
 #endif
 const char * ssid = STA_SSID;
 const char * pwd = STA_PWD;
@@ -110,17 +110,17 @@ void loop()
 	//Call kalman_filter function
     kalman_filter(mean_rssi);
 	//Calculate distance from RSSI output from Kalman filter
-    distance_kalman = calculate_distance(Re);
+    // distance_kalman = calculate_distance(Re);
 	//Print the two distances
-    Serial.print(ARm);
-    Serial.print(" ");
-    Serial.print(Re);
-    Serial.print(" ");
-    Serial.print(normal_dist);
-    Serial.print(" ");
-    Serial.print(distance_kalman);
-    Serial.print(" ");
-    Serial.println(k);
+    // Serial.print(ARm);
+    // Serial.print(" ");
+    // Serial.print(Re);
+    // Serial.print(" ");
+    Serial.println(normal_dist);
+    // Serial.print(" ");
+    // Serial.print(distance_kalman);
+    // Serial.print(" ");
+    // Serial.println(k);
     mean_rssi = 0;
     delay(1);
 }

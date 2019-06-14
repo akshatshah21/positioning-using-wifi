@@ -3,8 +3,8 @@
 //#include <ESP8266WiFiMulti.h>
 
 #ifndef STA_SSID
-#define STA_SSID "esp32"
-#define STA_PWD "password"
+#define STA_SSID "leo"
+#define STA_PWD "leopassword"
 #endif
 const char * ssid = STA_SSID;
 const char * pwd = STA_PWD;
@@ -62,10 +62,10 @@ void setup()
 void loop() {
     kalman_filter();
     //Serial.print("Actual RSSI:");
-    Serial.print(ARm);
-    Serial.print(" ");
+    // Serial.println(ARm);
+    //Serial.print(" ");
     //Serial.print("\t Estimated RSSI:");
-    Serial.print(Re);
-    Serial.print(" ");
-    Serial.println(k,8);
+    Serial.println(Re);
+    //Serial.print(" ");
+    //Serial.println(k,8);
 }

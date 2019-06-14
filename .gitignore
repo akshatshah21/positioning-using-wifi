@@ -86,6 +86,13 @@ anchor/.vscode/ipch/
 anchor/include/
 anchor/lib/
 anchor/test/
+new_scale/.pioenvs/
+new_scale/.vscode/
+new_scale/.vscode/ipch/
+new_scale/include/
+new_scale/lib/
+new_scale/test/
+
 *.json
 *.ipch
 *.bin

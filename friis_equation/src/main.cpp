@@ -4,13 +4,13 @@
 #include <math.h>
 
 #ifndef STA_SSID
-#define STA_SSID "esp32"
-#define STA_PWD "password"
+#define STA_SSID "leo"
+#define STA_PWD "leopassword"
 #endif
 const char * ssid = STA_SSID;
 const char * pwd = STA_PWD;
 
-ESP8266WiFiMulti WiFiMulti;
+ESP8266WiFiSTAClass wifi;
 //Implementing Kalman Filter:
 
 double ARm, 	//Actual RSSI measurement, from WiFi.RSSI()
@@ -46,21 +46,21 @@ void kalman_filter()
     {
         prev_Pe=1;
     }
-    
+
 }
 
 double txPower = -46;
-/*
+
 double calculate_distance(double rssi)
 {
     double r;
-    Serial.println("calc called ");
-    r = pow(10,((19.5-rssi)/(10*1.7)) - 0.36 - 6 - (32.44/(10*1.7)));
-    Serial.println("Calc done");
+    // Serial.println("calc called ");
+    r = pow(10,((19.5-rssi)/(10*1.6)) - 0.36 - (27.32/(10*1.7)));
+    // Serial.println("Calc done");
     return r;
 }
-*/
 
+/*
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
 double calculate_distance(double rssi)
@@ -86,19 +86,19 @@ double calculate_distance(double rssi)
             return dist;
     }
 }
-
+*/
 double normal_dist, distance_kalman;
 
 void setup() {
     Serial.begin(115200);
     WiFi.mode(WIFI_STA);
-        WiFiMulti.addAP(ssid,pwd);
+        wifi.begin(ssid,pwd);
 
     //Serial.println();
     //Serial.println();
     //Serial.println("Waiting for ESP32 WiFi AP");
 
-    while(WiFiMulti.run() != WL_CONNECTED)
+    while(wifi.status() != WL_CONNECTED)
     {
         //Serial.println(".");
         delay(500);
@@ -127,5 +127,5 @@ void loop()
     Serial.print(normal_dist);
     Serial.print(" ");
     Serial.println(k,8);
-    delay(1);
+    delay(500);
 }

@@ -1,12 +1,12 @@
 #include <Arduino.h>
-#include <WiFi.h>
+#include <ESP8266WiFi.h>
 #include <math.h>
 #include <PubSubClient.h>
 
 
 //broker details
-const char* ssid = "ganadhish";
-const char* password = "ganadhish";
+const char* ssid = "leo";
+const char* password = "leopassword";
 const char* brokerUser = "ocbshoyv";/// MQTT Broker USerName
 const char* brokerPass = "u7RF9Xts1g1r"; //broker password
 const char* broker = "postman.cloudmqtt.com";  //broker
@@ -70,7 +70,7 @@ void kalman_filter()
 }
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
-double txPower = -41;
+double txPower = -43;
 double calculate_distance(double rssi)
 {
     double dist;
@@ -93,7 +93,7 @@ double calculate_distance(double rssi)
             return dist;
     }
     */
-   dist = pow(10,((txPower-rssi)/16));
+   dist = pow(5,((txPower-rssi)/16));
    return dist;
 }
 
@@ -130,14 +130,14 @@ void reconnect(){
             Serial.println(broker);
         } else{
             Serial.println("Trying to connect again");
-            delay(500);
+            delay(200);
         }
 
 
     }
 }
 void setup(){
-     Serial.begin(115200);
+    Serial.begin(115200);
 
 
     setup_wifi();
@@ -167,27 +167,31 @@ void loop(){
 	//Calculate distance from RSSI output from Kalman filter
     distance_kalman = calculate_distance(Re);
 	//Print the two distances
-    Serial.print(distance_kalman);
-    Serial.print(" ");
-    Serial.print(normal_dist);
-    Serial.print(" ");
-    Serial.println(k,8); //Printing Kalman gain to 8dp
-    delay(1);
+    //Serial.print(distance_kalman);
+    //Serial.print(" ");
+    Serial.println(normal_dist);
+    //Serial.print(" ");
+    //Serial.println(k,8); //Printing Kalman gain to 8dp
+    Serial.println(ARm);
+    
 
 
 
     double dist_1 = distance_kalman;        //distance
-    Serial.println("distance calculated is :");
-    Serial.println(dist_1);     //printing value of d
+    //Serial.println("distance calculated is :");
+    //Serial.println(dist_1);     //printing value of d
 
-    char distance_1 [10];
+    char distance_1[10], raw_dist[10];
     dtostrf(dist_1,3,3, distance_1); //// convert float to char parameter= value ,width,precision,arr_to_store
-    client.publish("d1", distance_1); /// send char array
-
+    client.publish("d3", distance_1);
+    //Serial.println("Published");
+    //dtostrf(normal_dist,3,3, raw_dist);
+    //client.publish("d1",raw_dist) ;/// send char array
+    
     if (!client.connected()){
         reconnect();
     }
-
+    delay(500); //Remember to comment
     client.loop();
 
 }
