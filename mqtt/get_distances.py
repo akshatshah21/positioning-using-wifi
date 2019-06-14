@@ -1,4 +1,4 @@
-    #!python3
+#!python3
 #Header files
 
 import paho.mqtt.client as mqtt
@@ -13,12 +13,6 @@ def on_message(client, userdata, message):
 '''
 
 
-#Open files for storing the three distances:
-# f1 = open("Distance1.txt",'w')
-# f2 = open("Distance2.txt",'w')
-# f3 = open("Distance3.txt",'w')
-
-
 #Initialize counter for trifurcating the distances in order
 count = 1
 print("count set to 1")
@@ -29,7 +23,7 @@ def on_message(client, userdata, message):
     global count #Note this. To change a global variable
     print(message.topic, message.payload.decode())
     if count % 3 == 1:  #Check
-        print("Entered count 1 case")
+        print("Entered count 1 case") #For debugging
         if str(message.topic) == 'd1':
             global count
             print("Printing to Distance1.txt")
@@ -40,7 +34,7 @@ def on_message(client, userdata, message):
             count += 1
             # print("count=",count)
     elif count % 3 == 2:   #Check
-        print("Entered count 2 case")
+        print("Entered count 2 case")   #For debugging
         if message.topic == 'd2':
             global count
             print("Printing to Distance2.txt")
@@ -51,7 +45,7 @@ def on_message(client, userdata, message):
             count += 1
             print("Count set to 3")
     elif count % 3 == 0:
-        print("Entered count 3 case")
+        print("Entered count 3 case")    #For debugging
         if message.topic == 'd3':
             global count
             print("Printing to Distance3.txt")

@@ -20,15 +20,7 @@ void get_mean()
     mean_rssi /= 100;
 }
 
-/*
-//esp WiFi details
-#ifndef STA_SSID
-#define STA_SSID "esp32"
-#define STA_PWD "password"
-#endif
-//const char * ssid = STA_SSID;
-//const char * pwd = STA_PWD;
-*/
+
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -64,16 +56,7 @@ void kalman_filter()
 	//Serial.print(" ");
 	prev_Re = Re;
 	prev_Pe = Pe;
-    /*
-    if(Pe>=0.00001)
-    {
-        prev_Pe = Pe;
-    }
-    else
-    {
-        prev_Pe=1;
-    }
-    */
+
 }
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
@@ -81,27 +64,8 @@ double txPower = -55.2;
 double calculate_distance(double rssi)
 {
     double dist;
-    /*
-    if(WiFi.RSSI()>=txPower)       //DISTANCE LESSER THAN 1m
-    {
-        dist = pow(10,((txPower-rssi)/20));
-       if(isnan(dist)){
-            //Serial.print("NAN condition!");
-            return -1;
-        }
-        else
-            return dist;
-    }
-    else        //DISTANCE GREATER THAN 1m
-    {
-    dist = pow(10,((txPower-rssi)/17));
-    if(isnan(dist))  return -1;
-        else
-            return dist;
-    }
-    */
-   dist = pow(10,((txPower-rssi)/16));
-   return dist;
+    dist = pow(10,((txPower-rssi)/16));
+    return dist;
 }
 
 double normal_dist, distance_kalman;
@@ -181,7 +145,7 @@ void loop(){
     //Serial.print(" ");
     //Serial.println(k,8); //Printing Kalman gain to 8dp
     //Serial.println(ARm);
-    
+
 
 
 
@@ -195,7 +159,7 @@ void loop(){
     //Serial.println("Published");
     dtostrf(normal_dist,3,3, raw_dist);
     client.publish("d1",raw_dist) ;/// send char array
-    
+
     if (!client.connected()){
         reconnect();
     }
