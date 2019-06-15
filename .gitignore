@@ -92,7 +92,12 @@ new_scale/.vscode/ipch/
 new_scale/include/
 new_scale/lib/
 new_scale/test/
-
+complexity1/.pioenvs/
+complexity1/.vscode/
+complexity1/.vscode/ipch/
+complexity1/include/
+complexity1/lib/
+complexity1/test/
 *.json
 *.ipch
 *.bin
