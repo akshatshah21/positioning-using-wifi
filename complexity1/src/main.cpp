@@ -7,11 +7,11 @@
 //broker details
 const char* internet_AP_ssid = "leo";
 const char* internet_AP_password = "leopassword";
-const char* brokerUser = "ocbshoyv";/// MQTT Broker USerName
+const char* brokerUser = "ocbshoyv";/// MQTT Broker UserName
 const char* brokerPass = "u7RF9Xts1g1r"; //broker password
 const char* broker = "postman.cloudmqtt.com";  //broker
 int mqtt_port = 16557;   //will have to change
-
+/*
 double mean_rssi = 0;
 void get_mean()
 {
@@ -19,7 +19,7 @@ void get_mean()
         mean_rssi += WiFi.RSSI();
     mean_rssi /= 100;
 }
-
+*/
 
 
 WiFiClient espClient;
@@ -135,7 +135,7 @@ String ssid,pub_msg_str;
 char * pub_dist,* pub_msg_char;
 void loop(){
 
-    delay(1000);
+    //delay(1000);
     Serial.println("APs found:");
     for(int i=0;i<WiFi.scanNetworks();i++)
     {
@@ -184,11 +184,11 @@ void loop(){
     //Serial.println("Published");
     //dtostrf(normal_dist,3,3, raw_dist);
     //client.publish("d1",raw_dist) ;/// send char array
-
+    */
     if (!client.connected()){
         reconnect();
     }
     // delay(500); //Remember to comment
     client.loop();
-    */
+    
 }
