@@ -20,14 +20,15 @@ print("count set to 1")
 
 # On message function for displaying and storing the message
 def on_message(client, userdata, message):
-    global count #Note this. To change a global variable
+    # global count #Note this. To change a global variable
     print(message.topic, message.payload.decode())
     if str(message.topic) == 'numOfTags':
         n = int(message.payload.decode())
         f = []
         for i in range (0,n):
             f[i] = open(str(i),'w')
-        global count = 1 # Maybe could add a flag that numOfTags is received and corresponding files created
+		# global count
+		count = 1 				# Maybe could add a flag that numOfTags is received and corresponding files created
     elif count % 3 == 1:  #Check
         print("Entered count 1 case") #For debugging
         if str(message.topic) == 'd1':
