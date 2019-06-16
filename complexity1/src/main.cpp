@@ -117,7 +117,7 @@ void reconnect(){
 
     }
 }
-kalman AP_arr[];
+kalman AP_arr[10];
 char numOfTags[3];
 void setup(){
     Serial.begin(115200);
