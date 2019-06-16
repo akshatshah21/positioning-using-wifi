@@ -2,18 +2,24 @@
 import time
 import os
 
-count = 1
-print('One:',count)
-def inc():
-    global count
-    # count += 1
-    print('Two:',count)
-inc()
-print('Three:',count)
-'''
-broker = "postman.cloudmqtt.com"
 
-def setup_mqtt():
-    mqtt mqttClient('Laptop')
-    mqttClient.
+#MQTT parameters
+broker = 'postman.cloudmqtt.com'
+mqttUserName = 'ocbshoyv'
+mqttPwd = 'u7RF9Xts1g1r'
+mqttPort = 16557
+mqttClient = mqtt.client('Laptop',True)
+
+
 '''
+Setting up the MQTT Client
+Uses the parameters as above
+'''
+def setup_mqtt():
+    global mqttClient
+    mqttClient.username_pw_set(username = mqttUserName, password = mqttPwd)
+    mqttClient.on_message = on_message()
+    print("Connecting to broker:"+broker)
+    mqttClient.connect(broker,mqttPort)
+    print("Connected")
+    mqttClient.subscribe([(a1,0),(a2,0),(a3,0)])
