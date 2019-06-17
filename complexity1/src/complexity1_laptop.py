@@ -22,7 +22,9 @@ def on_message(client, userdata, message):
         ssid_received = str(message.payload.decode())
         if ssid_received not in ssid_list:
             ssid_list.append(ssid_received)
-            file_dict[ssid_received] = file_list[ssid_count - 1]
+            file_dict[ssid_received] = file_list_a1[ssid_count - 1]
+            file_dict[ssid_received] = file_list_a2[ssid_count - 1]
+            file_dict[ssid_received] = file_list_a3[ssid_count - 1]
     if str(message.topic) == 'a1':      #Message in the form of ssid:distance
         msg = message.payload.decode()
         print(msg)
