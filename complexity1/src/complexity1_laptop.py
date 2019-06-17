@@ -6,9 +6,9 @@ import os
 
 
 
-file_list_a1 = [open("a1/file_{}.txt".format(x),'w') for x in range(10)]
-file_list_a2 = [open("a2/file_{}.txt".format(x),'w') for x in range(10)]
-file_list_a3 = [open("a3/file_{}.txt".format(x),'w') for x in range(10)]
+file_list_a1 = [open("a1/ssid_{}.txt".format(x),'w') for x in range(10)]
+file_list_a2 = [open("a2/ssid_{}.txt".format(x),'w') for x in range(10)]
+file_list_a3 = [open("a3/ssid_{}.txt".format(x),'w') for x in range(10)]
 
 ssid_list = []
 file_dict_a1 = {} #Empty dictionary for ssid-file object links
@@ -43,8 +43,8 @@ def on_message(client, userdata, message):
             if ssid == temp:
                 f = file_dict_a1[ssid]
                 f.write(separated_msg[1] + '\n')
-                f1.flush()
-                os.fsync(f1.fileno())
+                f.flush()
+                os.fsync(f.fileno())
                 #Use dictionary here. temp must be key. Return value must be file object
     elif str(message.topic) == 'a2':
         msg = message.payload.decode()
@@ -55,8 +55,8 @@ def on_message(client, userdata, message):
             if ssid == temp:
                 f = file_dict_a2[ssid]
                 f.write(separated_msg[1] + '\n')
-                f1.flush()
-                os.fsync(f1.fileno())
+                f.flush()
+                os.fsync(f.fileno())
     elif str(message.topic) == 'a3':
         msg = message.payload.decode()
         print(str(msg))
@@ -66,8 +66,8 @@ def on_message(client, userdata, message):
             if ssid == temp:
                 f = file_dict_a3[ssid]
                 f.write(separated_msg[1] + '\n')
-                f1.flush()
-                os.fsync(f1.fileno())
+                f.flush()
+                os.fsync(f.fileno())
 
 # def on_connect(client, userdata,flags,rc):
     # print("Connected")

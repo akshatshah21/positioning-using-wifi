@@ -98,6 +98,7 @@ complexity1/.vscode/ipch/
 complexity1/include/
 complexity1/lib/
 complexity1/test/
+complexity1/src/paho.mqtt.python/
 *.json
 *.ipch
 *.bin
