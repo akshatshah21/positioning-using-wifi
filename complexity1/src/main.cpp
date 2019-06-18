@@ -11,15 +11,7 @@ const char* brokerUser = "ocbshoyv";/// MQTT Broker UserName
 const char* brokerPass = "u7RF9Xts1g1r"; //broker password
 const char* broker = "postman.cloudmqtt.com";  //broker
 int mqtt_port = 16557;   //will have to change
-/*
-double mean_rssi = 0;
-void get_mean()
-{
-    for(int i=0;i<100;i++)
-        mean_rssi += WiFi.RSSI();
-    mean_rssi /= 100;
-}
-*/
+
 
 int n; //Count of number of APs scanned
 int i,j; //Counters for for loops
@@ -107,7 +99,7 @@ void reconnect(){
     while(!client.connected()){
         Serial.println("connecting to");
         Serial.println(broker);
-        if(client.connect("a2",brokerUser,brokerPass)){
+        if(client.connect("a3",brokerUser,brokerPass)){
             Serial.println("connected to");
             Serial.println(broker);
         } else{
@@ -117,7 +109,7 @@ void reconnect(){
 
     }
 }
-kalman AP_arr[10];
+kalman AP_arr[20];
 char ssid_msg[100];
 
 void setup(){
@@ -133,16 +125,6 @@ void setup(){
     Serial.println(String(mqtt_port));
     Serial.print("ESP8266 IP: ");
     Serial.println(WiFi.localIP());
-    
-    // ::kalman AP_arr[n];
-    
-    
-    // client.publish("numOfTags",numOfTags);   
-
- //client.setCallback(callback);
-
-
- // Serial.println("Modbus RTU Master Online");
 }
 
 
@@ -167,11 +149,9 @@ void loop(){
     Serial.println(n);
     for(i=0;i<n;i++)
     {
-        //Serial.println(i);
-        //Serial.print(WiFi.SSID(i));
+
         ssid = WiFi.SSID(i);
-        //Serial.print(":");
-        //Serial.println(WiFi.RSSI(i));
+
         rssi = WiFi.RSSI(i);
 
         for(j=0;j<n;j++)
@@ -185,43 +165,13 @@ void loop(){
         dtostrf(dist,3,3, pub_dist);
         pub_msg_str = ssid + ":" + pub_dist;
         strcpy(pub_msg_char,pub_msg_str.c_str());
-        client.publish("a2",pub_msg_char); //Topics: a1,a2,a3 for the three anchors
+        client.publish("a3",pub_msg_char); //Topics: a1,a2,a3 for the three anchors
         delay(10);
     }
     
     Serial.print("Still connected to:");
     Serial.println(WiFi.SSID());
-    /*
 
-    //Calculate distance from measured RSSI (from WiFi.RSSI())
-    //get_mean();
-    //normal_dist = calculate_distance(mean_rssi);
-	//Call kalman_filter function
-    //kalman_filter();
-	//Calculate distance from RSSI output from Kalman filter
-    //distance_kalman = calculate_distance(Re);
-	//Print the two distances
-    //Serial.print(distance_kalman);
-    //Serial.print(" ");
-    //Serial.println(normal_dist);
-    //Serial.print(" ");
-    //Serial.println(k,8); //Printing Kalman gain to 8dp
-    //Serial.println(ARm);
-
-
-
-
-    //double dist_1 = distance_kalman;        //distance
-    //Serial.println("distance calculated is :");
-    //Serial.println(dist_1);     //printing value of d
-
-    //char distance_1[10], raw_dist[10];
-    //dtostrf(dist_1,3,3, distance_1); //// convert float to char parameter= value ,width,precision,arr_to_store
-    //client.publish("d3", distance_1);
-    //Serial.println("Published");
-    //dtostrf(normal_dist,3,3, raw_dist);
-    //client.publish("d1",raw_dist) ;/// send char array
-    */
     if (!client.connected()){
         reconnect();
     }

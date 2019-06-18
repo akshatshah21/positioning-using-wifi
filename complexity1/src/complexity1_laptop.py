@@ -19,13 +19,14 @@ ssid_count = 0
 ssid_list_f = open('ssid_list.txt','w')
 
 def on_message(client, userdata, message):
-    print("Message received")
+    # print("Message received")
 
     global ssid_list, ssid_count, file_dict_a1, file_dict_a2, file_dict_a3, ssid_list_f
     if str(message.topic) == 'ssid':    #Messages will have ssid
+        print('ssid')
         ssid_count += 1
         ssid_received = str(message.payload.decode())
-        if ssid_received not in ssid_list:
+        if (ssid_received not in ssid_list) and (ssid_received!="JioPrivateNet") and (ssid_received!="JioNet@VJTI_Matunga"):
             ssid_list.append(ssid_received)
             ssid_list_f.write(ssid_received + '\n')
             ssid_list_f.flush()
@@ -34,7 +35,7 @@ def on_message(client, userdata, message):
             file_dict_a2[ssid_received] = file_list_a2[ssid_count - 1]
             file_dict_a3[ssid_received] = file_list_a3[ssid_count - 1]
     elif str(message.topic) == 'a1':      #Message in the form of ssid:distance
-        print("Hello a1")
+        print("a1")
         msg = message.payload.decode()
         print(str(msg))
         separated_msg = msg.split(':')
@@ -47,6 +48,7 @@ def on_message(client, userdata, message):
                 os.fsync(f.fileno())
                 #Use dictionary here. temp must be key. Return value must be file object
     elif str(message.topic) == 'a2':
+        print('a2')
         msg = message.payload.decode()
         print(str(msg))
         separated_msg = msg.split(':')
@@ -58,6 +60,7 @@ def on_message(client, userdata, message):
                 f.flush()
                 os.fsync(f.fileno())
     elif str(message.topic) == 'a3':
+        print('a3')
         msg = message.payload.decode()
         print(str(msg))
         separated_msg = msg.split(':')

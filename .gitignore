@@ -99,6 +99,11 @@ complexity1/include/
 complexity1/lib/
 complexity1/test/
 complexity1/src/paho.mqtt.python/
+complexity1/src/pos/
+complexity1/src/a1/
+complexity1/src/a2/
+complexity1/src/a3/
+complexity1/src/ssid_list.txt
 *.json
 *.ipch
 *.bin
