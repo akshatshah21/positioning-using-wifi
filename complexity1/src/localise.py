@@ -16,9 +16,9 @@ file_a3 = None
 
 while 1:
     for ssid in ssid_list:
-        file_a1 = open('a1/ssid_{}.txt'.format(ssid_list.index(ssid)),'r')
-        file_a2 = open('a2/ssid_{}.txt'.format(ssid_list.index(ssid)),'r')
-        file_a3 = open('a3/ssid_{}.txt'.format(ssid_list.index(ssid)),'r')
+        file_a1 = open('a1/{}.txt'.format(ssid),'r')
+        file_a2 = open('a2/{}.txt'.format(ssid),'r')
+        file_a3 = open('a3/{}.txt'.format(ssid),'r')
         file_a1.seek(0)
         file_a2.seek(0)
         file_a3.seek(0)

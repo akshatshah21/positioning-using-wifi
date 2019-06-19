@@ -43,9 +43,9 @@ class kalman{
 
 
 
-void kalman :: kalman_filter(double rssi)
+void kalman :: kalman_filter(double distance)
 {
-	ARm = rssi;
+	ARm = distance;
 	Rre	= prev_Re;
 	Pre = prev_Pe;
 	k = Pre/(Pre + R);
@@ -61,7 +61,7 @@ void kalman :: kalman_filter(double rssi)
 }
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
-double txPower = -43;
+double txPower = -44;
 double calculate_distance(double rssi)
 {
     double dist;
@@ -99,7 +99,7 @@ void reconnect(){
     while(!client.connected()){
         Serial.println("connecting to");
         Serial.println(broker);
-        if(client.connect("a1",brokerUser,brokerPass)){
+        if(client.connect("a3",brokerUser,brokerPass)){
             Serial.println("connected to");
             Serial.println(broker);
         } else{
@@ -128,7 +128,7 @@ void setup(){
 }
 
 
-double rssi,kalman_rssi, dist;
+double dist,kalman_dist, rssi;
 String ssid,pub_msg_str;
 char pub_dist[10], pub_msg_char[100];
 void loop(){
@@ -158,14 +158,17 @@ void loop(){
         {
             if(ssid==AP_arr[j].ssid)    break;
         }
-        AP_arr[j].kalman_filter(rssi);
+        // AP_arr[j].kalman_filter(rssi);
 
-        kalman_rssi = AP_arr[j].Re;
-        dist = calculate_distance(kalman_rssi);
-        dtostrf(dist,3,3, pub_dist);
+        // kalman_rssi = AP_arr[j].Re;
+        dist = calculate_distance(rssi);
+        AP_arr[j].kalman_filter(dist);
+        kalman_dist = AP_arr[j].Re;
+        
+        dtostrf(kalman_dist,3,3, pub_dist);
         pub_msg_str = ssid + ":" + pub_dist;
         strcpy(pub_msg_char,pub_msg_str.c_str());
-        client.publish("a1",pub_msg_char); //Topics: a1,a2,a3 for the three anchors
+        client.publish("a3",pub_msg_char); //Topics: a1,a2,a3 for the three anchors
         delay(10);
     }
     

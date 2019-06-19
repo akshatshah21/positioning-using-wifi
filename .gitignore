@@ -104,6 +104,12 @@ complexity1/src/a1/
 complexity1/src/a2/
 complexity1/src/a3/
 complexity1/src/ssid_list.txt
+kalman_on_distance_c1/.pioenvs/
+kalman_on_distance_c1/.vscode/
+kalman_on_distance_c1/.vscode/ipch/
+kalman_on_distance_c1/include/
+kalman_on_distance_c1/lib/
+kalman_on_distance_c1/test/
 *.json
 *.ipch
 *.bin
