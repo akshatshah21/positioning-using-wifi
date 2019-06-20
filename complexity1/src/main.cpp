@@ -61,7 +61,7 @@ void kalman :: kalman_filter(double rssi)
 }
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
-double txPower = -43;
+double txPower = -67;
 double calculate_distance(double rssi)
 {
     double dist;
@@ -75,7 +75,7 @@ void setup_internet_AP_wifi() {
 
     delay(100);
     // We start by connecting to a WiFi network
-    
+
     Serial.println();
     Serial.print("Connecting to ");
     Serial.println(internet_AP_ssid);
@@ -91,7 +91,7 @@ void setup_internet_AP_wifi() {
     Serial.println("Connected to");
     //Serial.println("IP address: ");
     Serial.println(internet_AP_ssid);
-    
+
 }
 
 
@@ -99,7 +99,7 @@ void reconnect(){
     while(!client.connected()){
         Serial.println("connecting to");
         Serial.println(broker);
-        if(client.connect("a1",brokerUser,brokerPass)){
+        if(client.connect("a2",brokerUser,brokerPass)){
             Serial.println("connected to");
             Serial.println(broker);
         } else{
@@ -136,16 +136,16 @@ void loop(){
     //delay(1000);
     Serial.print("APs found:");
     n = WiFi.scanNetworks();
-    
+
     for(int i = 0;i<n;i++)
     {
         AP_arr[i] = kalman(WiFi.SSID(i));
-        strcpy(ssid_msg,AP_arr[i].ssid.c_str()); 
+        strcpy(ssid_msg,AP_arr[i].ssid.c_str());
         client.publish("ssid",ssid_msg);
         Serial.println("Sent ssid");
         delay(10);
     }
-    
+
     Serial.println(n);
     for(i=0;i<n;i++)
     {
@@ -165,10 +165,10 @@ void loop(){
         dtostrf(dist,3,3, pub_dist);
         pub_msg_str = ssid + ":" + pub_dist;
         strcpy(pub_msg_char,pub_msg_str.c_str());
-        client.publish("a1",pub_msg_char); //Topics: a1,a2,a3 for the three anchors
+        client.publish("a2",pub_msg_char); //Topics: a1,a2,a3 for the three anchors
         delay(10);
     }
-    
+
     Serial.print("Still connected to:");
     Serial.println(WiFi.SSID());
 
@@ -177,5 +177,5 @@ void loop(){
     }
     // delay(500); //Remember to comment
     client.loop();
-    
+
 }

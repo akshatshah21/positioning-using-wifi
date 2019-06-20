@@ -30,7 +30,7 @@ def on_message(client, userdata, message):
         print('ssid')
 
         ssid_received = str(message.payload.decode())
-        if (ssid_received not in ssid_list) and (ssid_received!="JioPrivateNet") and (ssid_received!="JioNet@VJTI_Matunga") and (ssid_received!="VJTI-AP3") and  (ssid_received!="COE_AVITRA_5G") :
+        if (ssid_received not in ssid_list) and (ssid_received!="JioPrivateNet") and (ssid_received!="JioNet@VJTI_Matunga"):
             ssid_count += 1
             ssid_list.append(ssid_received)
 
@@ -51,7 +51,7 @@ def on_message(client, userdata, message):
             file_dict_a2[ssid_received] = file_list_a2[ssid_count - 1]
             file_dict_a3[ssid_received] = file_list_a3[ssid_count - 1]
     elif str(message.topic) == 'a1':      #Message in the form of ssid:distance
-        print("a1 sent message")
+        print("a1")
         msg = message.payload.decode()
         print("Message from a1 decoded")
         print(str(msg))
@@ -67,7 +67,7 @@ def on_message(client, userdata, message):
                 f.write(separated_msg[1] + '\n')
                 f.flush()
                 os.fsync(f.fileno())
-
+                
     elif str(message.topic) == 'a2':
         print('a2')
         msg = message.payload.decode()

@@ -2,10 +2,10 @@ import time
 
 x1 =0.0
 y1 =0.0
-x2 =0.0
-y2 =5.2
-x3 =3.0
-y3 =0.0
+x2 =1.0
+y2 =0.0
+x3 =1.0
+y3 =4.0
 
 ssid_list_f = open('ssid_list.txt','r')
 ssid_list = ssid_list_f.read().split('\n')
