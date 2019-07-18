@@ -61,7 +61,7 @@ void kalman :: kalman_filter(double rssi)
 }
 //Calculates distance from final mean RSSI value, using
 //Log-distance path loss model
-double txPower = -67;
+double txPower = -70;
 double calculate_distance(double rssi)
 {
     double dist;
